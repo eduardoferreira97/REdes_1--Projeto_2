@@ -1,5 +1,7 @@
 import socket               
 import os
+import time
+from tqdm import tqdm
 
 #49152-65535
 s = socket.socket()         
@@ -14,7 +16,7 @@ try:
 except Exception as e: 
     print("Tem alguma coisa errada com %s:%d. O erro é %s" % (host, 49159, e))
 
-Answer = input("download/ upload/ exit:")
+Answer = input("download/ upload/ exit: ")
 if(Answer == "download"):
     mssg = "download"
     s.send(mssg.encode())
@@ -31,7 +33,9 @@ if(Answer == "download"):
         DownloadFile = open(FileName,"wb")
         i = 1
         while Data:
-            print('Baixando...%d' %(i))
+            # print('Baixando...%d' %(i))
+            for i in tqdm(range(1)):
+                time.sleep(1)
             DownloadFile.write(Data)
             Data = s.recv(1024)
             i = i + 1
@@ -50,14 +54,20 @@ elif(Answer == "upload"):
     Read = UploadFile.read(1024)
     i = 1
     while Read:
-        print("Enviando...%d" %(i))
+        # print("Enviando...%d" %(i))
+        for i in tqdm(range(len(UploadFile))):
+            time.sleep(1)
         s.send(Read) #Envia 1KB 
         Read = UploadFile.read(1024)
     print("Arquivo enviado")
     UploadFile.close()
-    
+
 elif(Answer == "exit"):
     mssg = "exit"
+    print("Saindo do servidor")
     s.send(mssg.encode())
 s.close()
+
+
+
 

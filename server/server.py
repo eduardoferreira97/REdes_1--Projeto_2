@@ -21,7 +21,7 @@ class ThreadedServer():
             threading.Thread(target = self.listenToClient,args = (c,addr)).start()
 
     def listenToClient(self, c, addr):
-        block_size = 1024
+        # block_size = 1024
         print('Conexão estabelecida', addr)
 
         data = c.recv(1024)
@@ -37,7 +37,7 @@ class ThreadedServer():
                 print("Não encontrado no servidor")
 
             else:
-                print("Arquivo não encontrado")
+                print("Arquivo baixado")
                 upfile = FileName.decode()
                 UploadFile = open("/home/eduardo/Documentos/Projetos/Redes 1/Projeto 2/client/files/"+upfile,"rb")
                 Read = UploadFile.read(1024)
@@ -63,6 +63,7 @@ class ThreadedServer():
             c.close()
         
         elif data.decode() == "exit":
+            print("Saindo do servidor")
             c.close()
         
                  
