@@ -34,8 +34,8 @@ if(Answer == "download"):
         i = 1
         while Data:
             # print('Baixando...%d' %(i))
-            for i in tqdm(range(1)):
-                time.sleep(1)
+            # for i in tqdm(range(1)):
+            #     time.sleep(1)
             DownloadFile.write(Data)
             Data = s.recv(1024)
             i = i + 1
