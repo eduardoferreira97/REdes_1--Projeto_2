@@ -55,8 +55,8 @@ elif(Answer == "upload"):
     i = 1
     while Read:
         # Problema no range do arquivo, não consigo pegar o tamanho exato
-        for i in tqdm(range(len(Read))):
-            time.sleep(1)
+        # for i in tqdm(range(len(Read))):
+        #     time.sleep(1)
 
         s.send(Read) #Envia 1KB 
         Read = UploadFile.read(1024)
