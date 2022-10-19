@@ -28,7 +28,7 @@ class ThreadedServer():
     
         if (data.decode() == "download"):
             FileName = c.recv(1024)
-            for file in os.listdir("/home/eduardo/Documentos/Projetos/Redes 1/Projeto 2/client/files"):
+            for file in os.listdir("/home/eduardo/Documentos/Projetos/Redes 1/Projeto 2/server"):
                 if file == FileName.decode():
                     FileFound = 1
                     break
@@ -39,9 +39,9 @@ class ThreadedServer():
             else:
                 print("Arquivo baixado")
                 upfile = FileName.decode()
-                UploadFile = open("/home/eduardo/Documentos/Projetos/Redes 1/Projeto 2/client/files/"+upfile,"rb")
+                UploadFile = open("/home/eduardo/Documentos/Projetos/Redes 1/Projeto 2/server//"+upfile,"rb")
                 Read = UploadFile.read(1024)
-                i = 1
+
                 while Read:
                     c.send(Read) #Envia 1KB 
                     Read = UploadFile.read(1024)
@@ -53,11 +53,11 @@ class ThreadedServer():
             downfile = FileName.decode()
             Data = c.recv(1024)
             DownloadFile = open(downfile,"wb")
-            i = 1
+            
             while Data:
                 DownloadFile.write(Data)
                 Data = c.recv(1024)
-                i = i + 1
+               
             print("Arquivo enviado")
             DownloadFile.close()
             c.close()
