@@ -2,7 +2,6 @@ import socket
 import os
 
 #49152-65535
-
 s = socket.socket()         
 host = socket.gethostname() 
 port = 49157                
@@ -48,10 +47,12 @@ while True:
 
         mssg = "upload"
         s.send(mssg.encode())
+
         print("Arquivos:")
         for arqs in os.listdir(os.getcwd()+"/files"):
             print(arqs)
         print("\n")
+
         FileName = input("Coloque o nome o arquivo que vai ser eniado: ")
         s.send(FileName.encode())
 

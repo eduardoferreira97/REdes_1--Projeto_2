@@ -17,11 +17,11 @@ class ThreadedServer():
         self.s.listen(5)
         while True:
             c, addr = self.s.accept()
-            # c.settimeout(60)
+            # c.settimeout(0)
             threading.Thread(target = self.listenToClient,args = (c,addr)).start()
 
     def listenToClient(self, c, addr):
-        # block_size = 1024
+
         print('Conexão estabelecida', addr)
 
         data = c.recv(1024)
@@ -34,6 +34,7 @@ class ThreadedServer():
                     break
 
             if FileFound == 0:
+                c.send()
                 print("Não encontrado no servidor")
 
             else:
