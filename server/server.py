@@ -15,7 +15,6 @@ class ThreadedServer():
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.s.bind((self.host, self.port))                          
                                                                      
-
     def listen(self):
         # Habilita que o servidor aceite conexões
         self.s.listen(5)
@@ -29,17 +28,15 @@ class ThreadedServer():
 
         print('Conexão estabelecida', addr)
 
-        
         # Recebe a ação do cliente
         data = c.recv(1024)
-
 
         if (data.decode() == "download"):
             # Recebe o nome do arquivo
             FileName = c.recv(1024)
 
             # Percorrer o diretório
-            for file in os.listdir("/home/eduardo/Documentos/Projetos/Redes 1/Projeto 2/server"):
+            for file in os.listdir("/home/eduardo/Documentos/Projetos/Redes 1/Projeto 2/server/files"):
 
                 if file == FileName.decode():
                     FileFound = 1
@@ -52,10 +49,10 @@ class ThreadedServer():
 
             else:
                 # Caso o arquivo exista, ele vai decodificar as suas informações
-                
+        
                 upfile = FileName.decode()
                 # Abri o arquivo em binário para ser lido
-                UploadFile = open("/home/eduardo/Documentos/Projetos/Redes 1/Projeto 2/server//"+upfile,"rb")
+                UploadFile = open("/home/eduardo/Documentos/Projetos/Redes 1/Projeto 2/server/files//"+upfile,"rb")
                 Read = UploadFile.read(1024)
 
                 # Envia o arquivo lido 
@@ -64,6 +61,7 @@ class ThreadedServer():
                     Read = UploadFile.read(1024)
 
                 print("Arquivo baixado")
+                
                 # Fecha as conexões
                 UploadFile.close()
                 c.close()
@@ -74,8 +72,10 @@ class ThreadedServer():
             downfile = FileName.decode()
 
             Data = c.recv(1024)
+
             # Abrindo o arquivo que vai ser baixado
-            DownloadFile = open(downfile,"wb")
+            DownloadFile = open("/home/eduardo/Documentos/Projetos/Redes 1/Projeto 2/server/files//"+downfile,"wb")
+
             # Loop para "escrever" o arquivo selecionado
             while Data:
                 DownloadFile.write(Data)
